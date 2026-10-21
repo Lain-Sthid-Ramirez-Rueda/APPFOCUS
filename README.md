@@ -1,67 +1,64 @@
-# ⚡ CORE v3.0 - High Performance Productivity System
+# APPFOCUS — CORE v3.0
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TailwindCSS](https://img.shields.io/badge/tailwind%20css-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-**CORE v3.0** es una terminal de productividad de alto rendimiento diseñada bajo la metodología de **Deep Work** (Trabajo Profundo). Esta aplicación permite gestionar bloques de tiempo de impacto con una interfaz futurista y minimalista, optimizada para la máxima concentración.
+Aplicación web de productividad basada en la metodología **Deep Work** (trabajo profundo). Permite planificar el día en bloques de trabajo, marcarlos como completados y ver en tiempo real qué porcentaje de lo planeado se ha cumplido, con una interfaz oscura y sin distracciones.
 
-## 🚀 Características Destacadas
+## Funcionalidades
 
-* **Gestión de Bloques Operativos:** Clasificación de tareas en *Deep Work*, *Hábitos*, *Aprendizaje* y *Operativo*.
-* **Cálculo de Eficiencia Dinámico:** Algoritmo en tiempo real que mide tu rendimiento diario según los bloques completados.
-* **Enfoque Local-First:** Funciona al 100% sin conexión. Privacidad absoluta y latencia cero.
-* **UI de Grado Militar:** Interfaz oscura (Dark Mode) con efectos de desenfoque (Glassmorphism) y gradientes dinámicos.
-* **Buscador Reactivo:** Filtrado instantáneo de la agenda mediante estados optimizados de React.
+- **Bloques por categoría:** cada tarea se clasifica como *Deep Work*, *Hábito*, *Aprendizaje* u *Operativo*.
+- **Índice de eficiencia diaria:** porcentaje de bloques completados sobre el total planificado, recalculado en cada cambio.
+- **Datos locales y privados:** los bloques se guardan en el navegador (`localStorage`). No hay servidor, cuentas ni rastreadores; la información nunca sale del dispositivo.
+- **Búsqueda instantánea:** filtra los bloques por título o categoría mientras se escribe (`useMemo`).
+- **Interfaz enfocada:** modo oscuro, efecto *glassmorphism* y diseño responsive.
 
-## 🛠️ Stack Tecnológico
+## Stack
 
-* **Frontend Core:** React.js (Hooks avanzados: `useState`, `useMemo`, `useEffect`).
-* **Styling:** Tailwind CSS para una arquitectura de diseño escalable y responsiva.
-* **Icons:** Lucide React para una iconografía limpia y consistente.
-* **Runtime:** Babel Standalone para ejecución inmediata en navegador sin bundlers complejos.
+| Capa | Tecnología |
+|------|------------|
+| UI | React 18 (hooks: `useState`, `useMemo`, `useEffect`) |
+| Estilos | Tailwind CSS |
+| Iconos | Lucide |
+| Ejecución | Babel Standalone: JSX compilado en el navegador, sin bundler |
+| Persistencia | `localStorage` |
 
-## 🧠 Arquitectura Modular (Clean Code)
+> Las librerías se cargan desde CDN, por lo que la primera carga necesita conexión a internet.
 
-El proyecto ha sido refactorizado siguiendo los principios de Clean Code, pasando de un archivo único ("espagueti") a una arquitectura estructurada y modular:
+## Arquitectura
+
+El proyecto se refactorizó de un único archivo a una estructura modular:
 
 ```text
 /
-├── index.html          # Estructura semántica, libre de scripts y estilos embebidos
+├── index.html              # Estructura HTML, sin scripts ni estilos embebidos
 ├── css/
-│   └── style.css       # Estilos globales y reglas custom (ej. custom-scrollbar)
-├── js/
-│   ├── components/
-│   │   └── Icon.js     # Componente reutilizable para renderizar iconos
-│   ├── App.js          # Lógica de negocio (estados, filtrado) y componente UI
-│   └── main.js         # Punto de entrada de React (Render root)
-└── README.md           # Documentación
+│   └── style.css           # Estilos globales y reglas personalizadas
+└── js/
+    ├── components/
+    │   └── Icon.js         # Componente reutilizable de iconos
+    ├── App.js              # Estado, lógica de negocio y componente principal
+    └── main.js             # Punto de entrada de React
 ```
 
-## 📦 Instalación y Uso
+## Ejecución local
 
-Puedes ejecutar este proyecto localmente en menos de 10 segundos.
+Babel Standalone carga los archivos `.js` por HTTP, así que el proyecto debe servirse desde un servidor local (abrir `index.html` directamente no funciona).
 
-⚠️ **NOTA IMPORTANTE:** Debido a las políticas de seguridad (CORS) de los navegadores modernos para módulos y carga de scripts externos mediante Babel Standalone, **es necesario ejecutar un servidor local**.
+```bash
+git clone https://github.com/Lain-Sthid-Ramirez-Rueda/APPFOCUS.git
+cd APPFOCUS
+python -m http.server 8000     # o: npx serve .
+```
 
-1.  **Clona el repositorio:**
-    ```bash
-    git clone https://github.com/Lain-ramirez18/APPFOCUS.git
-    cd APPFOCUS
-    ```
+Luego abre `http://localhost:8000`.
 
-2.  **Ejecución con servidor local:**
-    Puedes usar extensiones como "Live Server" en VSCode, o usar Python/Node:
-    * Usando Python (ya instalado en la mayoría de sistemas):
-      ```bash
-      python -m http.server 8000
-      ```
-    * O con Node.js (`npx`):
-      ```bash
-      npx serve .
-      ```
+## Próximos pasos
 
-3.  **Abre en el navegador:**
-    Visita `http://localhost:8000` (o el puerto que te indique tu servidor).
+- Empaquetar con Vite para eliminar la compilación en el navegador y habilitar uso sin conexión real (PWA).
+- Edición y eliminación de bloques.
+- Historial de eficiencia por día.
 
 ---
-**Desarrollado por [Lain Ramirez](https://github.com/Lain-ramirez18)** *Transformando la disciplina en código.* ⚡
+
+Desarrollado por **[Lain Sthid Ramirez Rueda](https://github.com/Lain-Sthid-Ramirez-Rueda)** · [Portafolio](https://lainramirez.vercel.app)

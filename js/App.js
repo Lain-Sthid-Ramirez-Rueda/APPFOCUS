@@ -1,12 +1,34 @@
-const { useState, useMemo } = React;
+const { useState, useMemo, useEffect } = React;
+
+const STORAGE_KEY = 'appfocus.blocks.v1';
+const DEFAULT_BLOCKS = [
+    { id: 1, title: 'Trabajo Profundo: Programación', category: 'Deep Work', completed: false },
+    { id: 2, title: 'Lectura 30 min', category: 'Hábito', completed: true },
+];
+
+// Carga los bloques guardados en el navegador; si no hay datos válidos, usa los de ejemplo.
+const loadBlocks = () => {
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return Array.isArray(saved) ? saved : DEFAULT_BLOCKS;
+    } catch {
+        return DEFAULT_BLOCKS;
+    }
+};
 // Icon está disponible globalmente en window.Icon gracias al orden de los scripts
 
 const App = () => {
     // 1. ESTADO GLOBAL
-    const [blocks, setBlocks] = useState([
-        { id: 1, title: 'Trabajo Profundo: Programación', category: 'Deep Work', completed: false },
-        { id: 2, title: 'Lectura 30 min', category: 'Hábito', completed: true },
-    ]);
+    const [blocks, setBlocks] = useState(loadBlocks);
+
+    // Persistencia local: los bloques se guardan en el navegador del usuario, sin servidor.
+    useEffect(() => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(blocks));
+        } catch {
+            // Almacenamiento no disponible (modo privado): la app sigue funcionando en memoria.
+        }
+    }, [blocks]);
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newBlockTitle, setNewBlockTitle] = useState('');
